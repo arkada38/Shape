@@ -1,0 +1,23 @@
+﻿@page "/circle"
+
+<h3>Circle</h3>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Radius</span>
+  </div>
+  <input type="number" class="form-control" aria-label="Radius"
+  step="1" min="0" aria-describedby="inputGroup-sizing-default"
+  @bind="Radius" @bind:event="oninput">
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Diameter</span>
+  </div>
+  <input type="number" class="form-control" aria-label="Diameter"
+  step="1" min="0" aria-describedby="inputGroup-sizing-default"
+  @bind="Diameter" @bind:event="oninput">
+</div>
+
+<button class="btn btn-primary" @onclick="Clear">Clear</button>
