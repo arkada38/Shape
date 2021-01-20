@@ -1,0 +1,27 @@
+@page "/shape"
+
+<h3>Shape</h3>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">A</span>
+  </div>
+  <input type="number" class="form-control" aria-label="A" step="1" min="0" aria-describedby="inputGroup-sizing-default"
+    @bind="S.A.UserValue" @bind:event="oninput" placeholder="@(S.A.ComputedValue)">
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">B</span>
+  </div>
+  <input type="number" class="form-control" aria-label="B" step="1" min="0" aria-describedby="inputGroup-sizing-default"
+    @bind="S.B.UserValue" @bind:event="oninput" placeholder="@(S.B.ComputedValue)">
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">C</span>
+  </div>
+  <input type="number" class="form-control" aria-label="C" step="1" min="0" aria-describedby="inputGroup-sizing-default"
+    @bind="S.C.UserValue" @bind:event="oninput" placeholder="@(S.C.ComputedValue)">
+</div>
+<button class="btn btn-primary" @onclick="S.Calc">Calc</button>
