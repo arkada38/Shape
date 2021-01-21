@@ -1,43 +1,80 @@
+using System;
+
 namespace Shape.BW.Models
 {
   public class Shape
   {
-    public ShapeParam<decimal> A { get; set; } = new();
-    public ShapeParam<decimal> B { get; set; } = new();
-    public ShapeParam<decimal> C { get; set; } = new();
+    public ShapeParam A { get; set; } = new();
+    public ShapeParam B { get; set; } = new();
+    public ShapeParam C { get; set; } = new();
+
+    public Shape()
+    {
+      A.ValueChanged += (s, e) => Calc();
+      B.ValueChanged += (s, e) => Calc();
+      C.ValueChanged += (s, e) => Calc();
+    }
 
     public void Calc()
     {
-      if (!A.HasValue)
+      ClearComputedValues();
+
+      if (B.HasValue && C.HasValue)
       {
-        if (B.HasValue && C.HasValue)
-        {
-          A.ComputedValue = C.Value - B.Value;
-        }
+        A.ComputedValue = C.Value - B.Value;
       }
-      if (!B.HasValue)
+      if (A.HasValue && C.HasValue)
       {
-        if (A.HasValue && C.HasValue)
-        {
-          B.ComputedValue = C.Value - A.Value;
-        }
+        B.ComputedValue = C.Value - A.Value;
       }
-      if (!C.HasValue)
+      if (A.HasValue && B.HasValue)
       {
-        if (A.HasValue && B.HasValue)
-        {
-          C.ComputedValue = A.Value + B.Value;
-        }
+        C.ComputedValue = A.Value + B.Value;
       }
+    }
+
+    public void Clear()
+    {
+      A.Clear();
+      B.Clear();
+      C.Clear();
+    }
+
+    public void ClearComputedValues()
+    {
+      A.ComputedValue = null;
+      B.ComputedValue = null;
+      C.ComputedValue = null;
     }
   }
 
-  public class ShapeParam<T> where T : struct
+  public class ShapeParam
   {
-    public T? UserValue { get; set; }
-    public T? ComputedValue { get; set; }
+    public event EventHandler<decimal?> ValueChanged;
+    public decimal? UserValue { get; set; }
+    public decimal? ComputedValue { get; set; }
     public bool HasValue =>
       UserValue.HasValue || ComputedValue.HasValue;
-    public T Value => UserValue ?? ComputedValue ?? default;
+    public bool IsValid =>
+      !(UserValue.HasValue && ComputedValue.HasValue && UserValue.Value != ComputedValue.Value);
+    public string ValidString =>
+      !IsValid ? "is-invalid" : UserValue.HasValue ? "is-valid" : string.Empty;
+
+    public decimal? Value
+    {
+      get => UserValue ?? ComputedValue;
+      set
+      {
+        if (UserValue == value || value == 0) { return; }
+        UserValue = value;
+        ValueChanged?.Invoke(this, value);
+      }
+    }
+
+    public void Clear()
+    {
+      UserValue = null;
+      ComputedValue = null;
+    }
   }
 }

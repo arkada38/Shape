@@ -6,22 +6,25 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">A</span>
   </div>
-  <input type="number" class="form-control" aria-label="A" step="1" min="0" aria-describedby="inputGroup-sizing-default"
-    @bind="S.A.UserValue" @bind:event="oninput" placeholder="@(S.A.ComputedValue)">
+  <input type="number" class="form-control @S.A.ValidString" aria-label="A" step="1" min="0" aria-describedby="inputGroup-sizing-default"
+    @bind="S.A.Value" @bind:event="oninput">
 </div>
+
 <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">B</span>
   </div>
-  <input type="number" class="form-control" aria-label="B" step="1" min="0" aria-describedby="inputGroup-sizing-default"
-    @bind="S.B.UserValue" @bind:event="oninput" placeholder="@(S.B.ComputedValue)">
+  <input type="number" class="form-control @S.B.ValidString" aria-label="B" step="1" min="0" aria-describedby="inputGroup-sizing-default"
+    @bind="S.B.Value" @bind:event="oninput">
 </div>
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">C</span>
   </div>
-  <input type="number" class="form-control" aria-label="C" step="1" min="0" aria-describedby="inputGroup-sizing-default"
-    @bind="S.C.UserValue" @bind:event="oninput" placeholder="@(S.C.ComputedValue)">
+  <input type="number" class="form-control @S.C.ValidString" aria-label="C" step="1" min="0" aria-describedby="inputGroup-sizing-default"
+    @bind="S.C.Value" @bind:event="oninput">
 </div>
+
 <button class="btn btn-primary" @onclick="S.Calc">Calc</button>
+<button class="btn btn-primary" @onclick="S.Clear">Clear</button>
